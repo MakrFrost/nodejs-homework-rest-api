@@ -1,28 +1,34 @@
 const express = require("express");
 const router = express.Router();
-const controllers = require("../../controllers/contacts/index");
-const addSchemas = require("../../schemas/schemas");
-const addSchemasOpt = require("../../schemas/schemasOpt");
-const { controlerWrapper } = require("../../helpers/index");
-const { validBody } = require("../../middleware/index");
 
-router.get("/", controlerWrapper(controllers.listContacts));
+const ctrl = require("../../controllers/contacts");
+const { controlerWrapper } = require("../../helpers");
 
-router.get("/:contactId", controlerWrapper(controllers.getContactById));
+const { validBody } = require("../../middleware");
+const { schemas } = require("../../models/contact");
+
+router.get("/", controlerWrapper(ctrl.listContacts));
+
+router.get("/:contactId", controlerWrapper(ctrl.getContactById));
 
 router.post(
   "/",
-  validBody(addSchemas.shcemas),
-  controlerWrapper(controllers.addContact)
+  validBody(schemas.addSchema),
+  controlerWrapper(ctrl.addContact)
 );
+
+router.delete("/:contactId", controlerWrapper(ctrl.removeContact));
 
 router.put(
   "/:contactId",
-  validBody(addSchemasOpt.shcemasOpt),
-  controlerWrapper(controllers.updateContact)
+  validBody(schemas.addSchema),
+  controlerWrapper(ctrl.updateContact)
 );
 
-router.delete("/:contactId", controlerWrapper(controllers.removeContact));
+router.patch(
+  "/:contactId/favorite",
+  validBody(schemas.updateFavoriteSchema),
+  controlerWrapper(ctrl.updateStatusContact)
+);
 
 module.exports = router;
-// hw3
