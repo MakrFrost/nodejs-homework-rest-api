@@ -21,7 +21,7 @@ router.delete("/:contactId", controlerWrapper(ctrl.removeContact));
 
 router.put(
   "/:contactId",
-  validBody(schemas.addSchema),
+  validBody(schemas.schemasOpt),
   controlerWrapper(ctrl.updateContact)
 );
 
