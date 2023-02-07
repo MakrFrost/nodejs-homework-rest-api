@@ -18,6 +18,11 @@ const contactSchema = new Schema(
       minlength: 3,
       maxlength: 14,
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+      required: true,
+    },
     favorite: {
       type: Boolean,
       default: false,
