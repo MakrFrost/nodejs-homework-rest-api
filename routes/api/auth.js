@@ -12,6 +12,14 @@ router.post(
   controlerWrapper(auth.register)
 );
 
+router.get("./verify/:verificationToken", controlerWrapper(auth.verify));
+
+router.post(
+  "./verify",
+  validBody(schemas.verifyEmailSchema),
+  controlerWrapper(auth.resendMail)
+);
+
 router.post(
   "/login",
   validBody(schemas.loginSchema),
